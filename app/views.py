@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login
 from django.views.generic import View
 from django.http import HttpResponse
-#from django import forms
 from .forms import UserForm
+from app.convertor import conversion
+from django.views.decorators.csrf import csrf_exempt
+
 def home(request):
     
     return render(request, 'app/index.html')
@@ -31,4 +33,23 @@ def register(request):
     else:
         form = UserForm()
     return render(request, 'app/register.html', {'form': form})
-
+@csrf_exempt
+def conversion(request):
+    print("hello")   
+    converted_amount=0
+    amount=request.POST.get('amount')
+    print(amount)
+    try:
+        amount=float(amount)
+    except:
+        HttpResponse('Invalid')
+    convert_from=request.POST.get(str('convert'))
+    convert_to=request.POST.get('to')
+    print(convert_from)
+    print(convert_to)
+    if (convert_from == convert_to):
+        HttpResponse('amount')
+    else :
+        converted_amount=conversion(amount,convert_from,convert_to)
+    print (amount)
+    return HttpResponse(converted_amount)

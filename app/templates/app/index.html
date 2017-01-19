@@ -1,12 +1,12 @@
 <head></head>
 {% extends "app/base.html" %}
 {% block content %}
-<form method="POST">
+<form  action="conversion/" method="POST" name="POST">
  {% csrf_token %}
 
   
   Convert:
-<select id= "convert_from" class='select'>
+<select id= "convert" class='select'>
     <option value="USD">US Dollar</option>
     <option value="EUR">Euro</option>
     <option value="INR">Indian Rupee</option>
@@ -18,7 +18,7 @@ Amount:
 
 <br><br>
    To:
-<select id= "convert_to" class='select'>
+<select id= "to" class='select'>
   <option value="USD">US Dollar</option>
   <option value="EUR">Euro</option>
   <option value="INR">Indian Rupee</option>
@@ -26,7 +26,7 @@ Amount:
   <option value="GBP">GBP</option>
 </select>
 <br><br>
-  <input type="button" class="convert" id="submit" value="Convert"/><br><br>
+   <input type="submit" class="submit" id="submit" value="Submit"/>
   Converted Amount:
  <div style="text-align:center;text-color:'darkblue;" id='result' class= "boxs"> </div><br>
 </form>
