@@ -1,53 +1,53 @@
-<html>
-<head class="header">
-<h1>Convert Currency</h1>
-</head>
-{% load static %}
-<link rel="stylesheet" type="text/css" href={% static 'conversion/conversion_page.css' %}/>
-<body class='body'>
-
+<head></head>
+{% extends "app/base.html" %}
+{% load staticfiles%}
+{% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<form method="POST">
+<form  action="conversion/" method="POST" name="POST">
  {% csrf_token %}
-  Amount:
-  <input type="text" class= 'textarea_2' id="amount" name="amount"/><br>
-  <br>
-  Convert From:
-<select id= "convert_from" class='select'>
+
+  
+ <h2> Convert:</h2>
+<select id= "convert" class='select'>
     <option value="USD">US Dollar</option>
     <option value="EUR">Euro</option>
     <option value="INR">Indian Rupee</option>
-    <option value="SGD">SGD</option>
-    <option value="GBP">GBP</option>
+    <option value="SGD">Singapore Dollar</option>
+    <option value="GBP">Greaat Britin Pound</option>
  </select>
-  Convert To:
-<select id= "convert_to" class='select'>
+<h2>Amount:</h2>
+  <input type="number" class= 'number' id="amount" name="amount"/>
+
+<br><br>
+  <h2> To:</h2>
+<select id= "to" class='select'>
   <option value="USD">US Dollar</option>
   <option value="EUR">Euro</option>
   <option value="INR">Indian Rupee</option>
-  <option value="SGD">SGD</option>
-  <option value="GBP">GBP</option>
+  <option value="SGD">Singapore Dollar</option>
+  <option value="GBP">Greaat Britin Pound</option>
 </select>
 <br><br>
-  <input type="button" class="convert" id="submit" value="Convert"/><br><br>
-  Converted Amount:
- <div style="text-align:center;text-color:'darkblue;" id='result' class= "boxs"> </div><br>
+   
+     <input type='button'class='convert' id='submit' value='submit'/>
+<h2>  Converted Amount:</h2>
+ <div id='converted_amnt' class= "boxs"> </div><br>
+ 
+
 </form>
+
 <script>
-$("#submit").click(function(){
-    console.log('test')
-    $.ajax({url: "/conversion/",
+$("#submit").click(function (){
+    $.ajax({url: "conversion/",
            type:"POST",
-           data:{convert : $('#convert_from').val(),
-		 to:$('#convert_to').val(),
+           data:{convert : $('#convert').val(),
+		 to:$('#to').val(),
 	         amount:$('#amount').val(),
 		},
         success: function (html) {
-        //  console.log('success test')
-         $('#result').html(html);
+          $('#converted_amnt').html(html);
         }
 });
 });
 </script>
-</body>
-</html>
+{% endblock %}

@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     
-    return render(request, 'app/index1.html')
+    return render(request, 'app/index.html')
 
 def register(request):
    # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
