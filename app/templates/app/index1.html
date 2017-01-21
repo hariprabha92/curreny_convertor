@@ -1,0 +1,54 @@
+<head></head>
+{% extends "app/base.html" %}
+{% load staticfiles%}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<form  action="conversion/" method="POST" name="POST">
+ {% csrf_token %}
+
+  
+  Convert:
+<select id= "convert" class='select'>
+    <option value="USD">US Dollar</option>
+    <option value="EUR">Euro</option>
+    <option value="INR">Indian Rupee</option>
+    <option value="SGD">SGD</option>
+    <option value="GBP">GBP</option>
+ </select>
+Amount:
+  <input type="number" class= 'number' id="amount" name="amount"/>
+
+<br><br>
+   To:
+<select id= "to" class='select'>
+  <option value="USD">US Dollar</option>
+  <option value="EUR">Euro</option>
+  <option value="INR">Indian Rupee</option>
+  <option value="SGD">SGD</option>
+  <option value="GBP">GBP</option>
+</select>
+<br><br>
+   <!<input type="submit" class="submit" id="submit" value="Submit"/>>
+     <input type='button' onclick="Myfunction()" id='submit' value='submit'/>
+ <!   <input type="button" class="convert" id="submit" value="Convert"/><br><br>
+  Converted Amount:
+ <div style="text-align:center;text-color:'darkblue;" id='converted_amnt' class= "boxs"> </div><br>
+ 
+
+</form>
+
+<script>
+$("#submit").click(function (){
+    $.ajax({url: "conversion/",
+           type:"POST",
+           data:{convert : $('#convert').val(),
+		 to:$('#to').val(),
+	         amount:$('#amount').val(),
+		},
+        success: function (html) {
+          $('#converted_amnt').html(html);
+        }
+});
+});
+</script>
+{% endblock %}

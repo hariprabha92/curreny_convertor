@@ -4,12 +4,12 @@ from django.contrib.auth import authenticate,login
 from django.views.generic import View
 from django.http import HttpResponse
 from .forms import UserForm
-from app.convertor import conversion
+from app.convertor import convertfun
 from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     
-    return render(request, 'app/index.html')
+    return render(request, 'app/index1.html')
 
 def register(request):
    # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -37,19 +37,25 @@ def register(request):
 def conversion(request):
     print("hello")   
     converted_amount=0
+    rate=0
+    amount=0
     amount=request.POST.get('amount')
     print(amount)
     try:
         amount=float(amount)
     except:
         HttpResponse('Invalid')
-    convert_from=request.POST.get(str('convert'))
+    convert_from=request.POST.get('convert')
     convert_to=request.POST.get('to')
     print(convert_from)
     print(convert_to)
     if (convert_from == convert_to):
-        HttpResponse('amount')
+       converted_amount=amount
     else :
-        converted_amount=conversion(amount,convert_from,convert_to)
-    print (amount)
+        params={'base':convert_from,'symbols':convert_to}
+        print (params)
+        converted_amount=convertfun(amount,params)
+
+   # print (converted_amount)
+   # print(rate)
     return HttpResponse(converted_amount)
