@@ -35,27 +35,16 @@ def register(request):
     return render(request, 'app/register.html', {'form': form})
 @csrf_exempt
 def conversion(request):
-    print("hello")   
-    converted_amount=0
-    rate=0
-    amount=0
     amount=request.POST.get('amount')
-    print(amount)
     try:
         amount=float(amount)
     except:
         HttpResponse('Invalid')
     convert_from=request.POST.get('convert')
     convert_to=request.POST.get('to')
-    print(convert_from)
-    print(convert_to)
     if (convert_from == convert_to):
        converted_amount=amount
     else :
         params={'base':convert_from,'symbols':convert_to}
-        print (params)
         converted_amount=convertfun(amount,params)
-
-   # print (converted_amount)
-   # print(rate)
     return HttpResponse(converted_amount)
